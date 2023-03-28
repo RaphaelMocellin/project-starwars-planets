@@ -1,13 +1,17 @@
-import React, { useState, useContext } from 'react';
+import React, { useState, useContext, useEffect } from 'react';
 import StarWarsContext from '../context/StarWarsContext';
 
 function Filters() {
+  const SWContext = useContext(StarWarsContext);
+  const { nameFilter,
+    setNameFilter,
+    columnsArray,
+    numericFilter,
+    setNumericFilter } = SWContext;
+
   const [columnFilter, setColumnFilter] = useState('population');
   const [comparisonFilter, setComparisonFilter] = useState('maior que');
   const [valueFilter, setValueFilter] = useState(0);
-
-  const SWContext = useContext(StarWarsContext);
-  const { nameFilter, setNameFilter, numericFilter, setNumericFilter } = SWContext;
 
   const onClickHandler = () => {
     const newNumericFilter = {
@@ -17,6 +21,10 @@ function Filters() {
     };
     setNumericFilter([...numericFilter, newNumericFilter]);
   };
+
+  useEffect(() => {
+    setColumnFilter(columnsArray[0]);
+  }, [columnsArray]);
 
   return (
     <div>
@@ -40,11 +48,11 @@ function Filters() {
           onChange={ (e) => setColumnFilter(e.target.value) }
           data-testid="column-filter"
         >
-          <option value="population">population</option>
-          <option value="orbital_period">orbital_period</option>
-          <option value="diameter">diameter</option>
-          <option value="rotation_period">rotation_period</option>
-          <option value="surface_water">surface_water</option>
+          {
+            columnsArray.map((col) => (
+              <option key={ col } value={ col }>{ col }</option>
+            ))
+          }
         </select>
       </label>
       <label htmlFor="comparisonFilter">

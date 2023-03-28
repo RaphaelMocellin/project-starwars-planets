@@ -34,7 +34,7 @@ function Table() {
           .filter((planet) => Number(planet[f.columnFilter]) === Number(f.valueFilter));
       }
     });
-    console.log(workingArray);
+    // console.log(workingArray);
     return workingArray;
   };
 
