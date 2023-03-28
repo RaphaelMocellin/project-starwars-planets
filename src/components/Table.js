@@ -5,21 +5,47 @@ function Table() {
   const SWContext = useContext(StarWarsContext);
   const { planets,
     nameFilter,
+    numericFilter,
     filteredPlanets,
     setFilteredPlanets } = SWContext;
 
   const filterByName = (array) => {
     if (nameFilter === '') return array;
-    return array.filter((planet) => planet.name.includes(nameFilter));
+    return array
+      .filter((planet) => planet.name.toString().toLowerCase()
+        .includes(nameFilter.toLowerCase()));
+  };
+
+  const filterByNumber = (array) => {
+    if (numericFilter.length === 0) return array;
+    let workingArray = array;
+    numericFilter.forEach((f) => {
+      console.log(f);
+      if (f.comparisonFilter === 'maior que') {
+        workingArray = workingArray
+          .filter((planet) => Number(planet[f.columnFilter]) > Number(f.valueFilter));
+      }
+      if (f.comparisonFilter === 'menor que') {
+        workingArray = workingArray
+          .filter((planet) => Number(planet[f.columnFilter]) < Number(f.valueFilter));
+      }
+      if (f.comparisonFilter === 'igual a') {
+        workingArray = workingArray
+          .filter((planet) => Number(planet[f.columnFilter]) === Number(f.valueFilter));
+      }
+    });
+    console.log(workingArray);
+    return workingArray;
   };
 
   useEffect(() => {
     // console.log('loop?');
     const filteredByName = filterByName(planets);
-    // console.log(filteredByName);
+    const filteredByNumber = filterByNumber(filteredByName);
+    // console.log(filteredByNumber);
 
-    setFilteredPlanets(filteredByName);
-  }, [planets, nameFilter]);
+    setFilteredPlanets(filteredByNumber);
+  }, [planets, nameFilter, numericFilter]);
 
   return (
     <div>

@@ -2,9 +2,9 @@ import React, { useState, useContext } from 'react';
 import StarWarsContext from '../context/StarWarsContext';
 
 function Filters() {
-  const [columnFilter, setColumnFilter] = useState('');
-  const [comparisonFilter, setComparisonFilter] = useState('');
-  const [valueFilter, setValueFilter] = useState('');
+  const [columnFilter, setColumnFilter] = useState('population');
+  const [comparisonFilter, setComparisonFilter] = useState('maior que');
+  const [valueFilter, setValueFilter] = useState(0);
 
   const SWContext = useContext(StarWarsContext);
   const { nameFilter, setNameFilter, numericFilter, setNumericFilter } = SWContext;
@@ -56,9 +56,9 @@ function Filters() {
           onChange={ (e) => setComparisonFilter(e.target.value) }
           data-testid="comparison-filter"
         >
-          <option value=">">maior que</option>
-          <option value="<">menor que</option>
-          <option value="=">igual a</option>
+          <option value="maior que">maior que</option>
+          <option value="menor que">menor que</option>
+          <option value="igual a">igual a</option>
         </select>
       </label>
       <label htmlFor="valueFilter">
@@ -75,6 +75,7 @@ function Filters() {
       <button
         type="button"
         onClick={ onClickHandler }
+        data-testid="button-filter"
       >
         Filtrar
 

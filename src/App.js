@@ -6,8 +6,7 @@ import StarWarsContext from './context/StarWarsContext';
 
 function App() {
   const SWContext = useContext(StarWarsContext);
-  const { planets, setPlanets } = SWContext;
-  console.log(planets);
+  const { setPlanets } = SWContext;
 
   // const fetchData = async () => {
   //   const request = await fetch('https://swapi.dev/api/planets');
