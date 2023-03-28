@@ -17,7 +17,7 @@ function App() {
   useEffect(() => {
     fetch('https://swapi.dev/api/planets')
       .then((result) => result.json())
-      .then((data) => setPlanets(data.results));
+      .then((data) => setPlanets(data.results.map(({ residents, ...rest }) => rest)));
   }, [setPlanets]);
 
   return (
