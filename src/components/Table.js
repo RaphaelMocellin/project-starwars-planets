@@ -1,9 +1,26 @@
-import React, { useContext } from 'react';
+import React, { useContext, useEffect } from 'react';
 import StarWarsContext from '../context/StarWarsContext';
 
 function Table() {
   const SWContext = useContext(StarWarsContext);
-  const { planets } = SWContext;
+  const { planets,
+    nameFilter,
+    filteredPlanets,
+    setFilteredPlanets } = SWContext;
+
+  const filterByName = (array) => {
+    if (nameFilter === '') return array;
+    return array.filter((planet) => planet.name.includes(nameFilter));
+  };
+
+  useEffect(() => {
+    // console.log('loop?');
+    const filteredByName = filterByName(planets);
+    // console.log(filteredByName);
+
+    setFilteredPlanets(filteredByName);
+  }, [planets, nameFilter]);
+
   return (
     <div>
       {
@@ -21,7 +38,7 @@ function Table() {
               </thead>
               <tbody>
                 {
-                  planets.map((planet) => (
+                  filteredPlanets.map((planet) => (
                     <tr key={ planet.name }>
                       <td>{planet.name}</td>
                       <td>{planet.rotation_period}</td>

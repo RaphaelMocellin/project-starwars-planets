@@ -4,9 +4,20 @@ import StarWarsContext from './StarWarsContext';
 
 export default function StarWarsProvider({ children }) {
   const [planets, setPlanets] = useState([]);
+  const [nameFilter, setNameFilter] = useState([]);
+  const [filteredPlanets, setFilteredPlanets] = useState([]);
+
+  const globalState = {
+    planets,
+    setPlanets,
+    nameFilter,
+    setNameFilter,
+    filteredPlanets,
+    setFilteredPlanets,
+  };
 
   return (
-    <StarWarsContext.Provider value={ { planets, setPlanets } }>
+    <StarWarsContext.Provider value={ globalState }>
       <div>
         { children }
       </div>
