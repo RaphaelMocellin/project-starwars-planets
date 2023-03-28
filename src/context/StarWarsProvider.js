@@ -5,6 +5,7 @@ import StarWarsContext from './StarWarsContext';
 export default function StarWarsProvider({ children }) {
   const [planets, setPlanets] = useState([]);
   const [nameFilter, setNameFilter] = useState([]);
+  const [numericFilter, setNumericFilter] = useState([]);
   const [filteredPlanets, setFilteredPlanets] = useState([]);
 
   const globalState = {
@@ -12,6 +13,8 @@ export default function StarWarsProvider({ children }) {
     setPlanets,
     nameFilter,
     setNameFilter,
+    numericFilter,
+    setNumericFilter,
     filteredPlanets,
     setFilteredPlanets,
   };
