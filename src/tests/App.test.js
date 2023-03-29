@@ -143,11 +143,12 @@ describe('Teste do Star Wars Planets Search', () => {
 
     userEvent.selectOptions(columnFilter, 'rotation_period')
     userEvent.selectOptions(comparisonFilter, 'menor que')
-    userEvent.type(valueFilter, '20')
+    userEvent.clear(valueFilter)
+    userEvent.type(valueFilter, '24')
     userEvent.click(filterBtn)
 
     const filteredPlanets = await screen.findAllByTestId('planet-name')
-    expect(filteredPlanets).toHaveLength(2)
+    expect(filteredPlanets).toHaveLength(5)
 
     userEvent.selectOptions(columnFilter, 'diameter')
     userEvent.selectOptions(comparisonFilter, 'maior que')
@@ -156,8 +157,16 @@ describe('Teste do Star Wars Planets Search', () => {
     userEvent.click(filterBtn)
 
     const newFilteredPlanets = await screen.findAllByTestId('planet-name')
-    expect(newFilteredPlanets).toHaveLength(1)
+    expect(newFilteredPlanets).toHaveLength(4)
 
+    userEvent.selectOptions(columnFilter, 'surface_water')
+    userEvent.selectOptions(comparisonFilter, 'igual a')
+    userEvent.clear(valueFilter)
+    userEvent.type(valueFilter, '1')
+    userEvent.click(filterBtn)
+
+    const newFilteredPlanets2 = await screen.findAllByTestId('planet-name')
+    expect(newFilteredPlanets2).toHaveLength(1)
 
     const removeAllFilters = await screen.findByTestId('button-remove-filters')
     userEvent.click(removeAllFilters)
