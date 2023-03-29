@@ -173,6 +173,7 @@ function Filters() {
                 {`${f.columnFilter} ${f.comparisonFilter} ${f.valueFilter} `}
                 <button
                   type="button"
+                  data-testid="remove-single-filter"
                   onClick={ () => onRemoveClick(f.columnFilter) }
                 >
                   Remover
