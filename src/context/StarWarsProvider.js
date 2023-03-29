@@ -13,11 +13,12 @@ export default function StarWarsProvider({ children }) {
   const [nameFilter, setNameFilter] = useState('');
   const [columnsArray, setColumnsArray] = useState(initialColumns);
   const [numericFilter, setNumericFilter] = useState([]);
+  const [sort, setSort] = useState({ order: { column: '', sort: '' } });
   const [filteredPlanets, setFilteredPlanets] = useState([]);
 
   useEffect(() => {
     const numericColumns = numericFilter.map((f) => f.columnFilter);
-    console.log(numericColumns);
+    // console.log(numericColumns);
     setColumnsArray(columnsArray.filter((c) => !numericColumns.includes(c)));
   }, [numericFilter]);
 
@@ -30,6 +31,8 @@ export default function StarWarsProvider({ children }) {
     setColumnsArray,
     numericFilter,
     setNumericFilter,
+    sort,
+    setSort,
     filteredPlanets,
     setFilteredPlanets,
   };

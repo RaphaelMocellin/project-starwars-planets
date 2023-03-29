@@ -7,11 +7,14 @@ function Filters() {
     setNameFilter,
     columnsArray,
     numericFilter,
-    setNumericFilter } = SWContext;
+    setNumericFilter,
+    setSort } = SWContext;
 
   const [columnFilter, setColumnFilter] = useState('population');
   const [comparisonFilter, setComparisonFilter] = useState('maior que');
   const [valueFilter, setValueFilter] = useState(0);
+  const [orderColumn, setOrderColumn] = useState('population');
+  const [order, setOrder] = useState('');
 
   const onClickHandler = () => {
     const newNumericFilter = {
@@ -29,6 +32,10 @@ function Filters() {
 
   const onRemoveAllClick = () => {
     setNumericFilter([]);
+  };
+
+  const onSortClick = () => {
+    setSort({ order: { column: orderColumn, sort: order } });
   };
 
   useEffect(() => {
@@ -96,6 +103,54 @@ function Filters() {
           data-testid="button-filter"
         >
           Filtrar
+
+        </button>
+        <label htmlFor="orderColumn">
+          Ordenar:
+          <select
+            id="orderColumn"
+            name="orderColumn"
+            value={ orderColumn }
+            onChange={ (e) => setOrderColumn(e.target.value) }
+            data-testid="column-sort"
+          >
+
+            <option value="population">population</option>
+            <option value="orbital_period">orbital_period</option>
+            <option value="diameter">diameter</option>
+            <option value="rotation_period">rotation_period</option>
+            <option value="surface_water">surface_water</option>
+
+          </select>
+        </label>
+        <label htmlFor="asc">
+          ASC:
+          <input
+            id="asc"
+            type="radio"
+            name="order"
+            value="ASC"
+            onChange={ (e) => setOrder(e.target.value) }
+            data-testid="column-sort-input-asc"
+          />
+        </label>
+        <label htmlFor="desc">
+          DESC:
+          <input
+            id="desc"
+            type="radio"
+            name="order"
+            value="DESC"
+            onChange={ (e) => setOrder(e.target.value) }
+            data-testid="column-sort-input-desc"
+          />
+        </label>
+        <button
+          type="button"
+          onClick={ onSortClick }
+          data-testid="column-sort-button"
+        >
+          Ordernar
 
         </button>
         <button

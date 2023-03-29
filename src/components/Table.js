@@ -6,6 +6,7 @@ function Table() {
   const { planets,
     nameFilter,
     numericFilter,
+    sort,
     filteredPlanets,
     setFilteredPlanets } = SWContext;
 
@@ -34,18 +35,36 @@ function Table() {
           .filter((planet) => Number(planet[f.columnFilter]) === Number(f.valueFilter));
       }
     });
-    // console.log(workingArray);
     return workingArray;
+  };
+
+  const sortList = (array) => {
+    if (sort.order.sort === '') return array;
+    if (sort.order.sort === 'ASC') {
+      const Nums = array.filter((e) => e[sort.order.column] !== 'unknown');
+      const Unknown = array.filter((e) => e[sort.order.column] === 'unknown');
+
+      const sortedNums = Nums.sort((a, b) => a[sort.order.column] - b[sort.order.column]);
+      return [...sortedNums, ...Unknown];
+    }
+    if (sort.order.sort === 'DESC') {
+      const Nums = array.filter((e) => e[sort.order.column] !== 'unknown');
+      const Unknown = array.filter((e) => e[sort.order.column] === 'unknown');
+
+      const sortedNums = Nums.sort((a, b) => b[sort.order.column] - a[sort.order.column]);
+      return [...sortedNums, ...Unknown];
+    }
   };
 
   useEffect(() => {
     // console.log('loop?');
     const filteredByName = filterByName(planets);
     const filteredByNumber = filterByNumber(filteredByName);
-    // console.log(filteredByNumber);
+    const sortedPlanets = sortList(filteredByNumber);
+    // console.log(sortedPlanets);
 
-    setFilteredPlanets(filteredByNumber);
-  }, [planets, nameFilter, numericFilter]);
+    setFilteredPlanets(sortedPlanets);
+  }, [planets, nameFilter, numericFilter, sort]);
 
   return (
     <div>
@@ -66,7 +85,7 @@ function Table() {
                 {
                   filteredPlanets.map((planet) => (
                     <tr key={ planet.name }>
-                      <td>{planet.name}</td>
+                      <td data-testid="planet-name">{planet.name}</td>
                       <td>{planet.rotation_period}</td>
                       <td>{planet.orbital_period}</td>
                       <td>{planet.diameter}</td>
