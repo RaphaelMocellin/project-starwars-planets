@@ -21,7 +21,7 @@ function Table() {
     if (numericFilter.length === 0) return array;
     let workingArray = array;
     numericFilter.forEach((f) => {
-      console.log(f);
+      // console.log(f);
       if (f.comparisonFilter === 'maior que') {
         workingArray = workingArray
           .filter((planet) => Number(planet[f.columnFilter]) > Number(f.valueFilter));
