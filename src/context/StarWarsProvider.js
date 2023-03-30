@@ -18,7 +18,6 @@ export default function StarWarsProvider({ children }) {
 
   useEffect(() => {
     const numericColumns = numericFilter.map((f) => f.columnFilter);
-    // console.log(numericColumns);
     setColumnsArray(columnsArray.filter((c) => !numericColumns.includes(c)));
   }, [numericFilter]);
 

@@ -8,12 +8,6 @@ function App() {
   const SWContext = useContext(StarWarsContext);
   const { setPlanets } = SWContext;
 
-  // const fetchData = async () => {
-  //   const request = await fetch('https://swapi.dev/api/planets');
-  //   const response = await request.json();
-  //   return response;
-  // };
-
   useEffect(() => {
     fetch('https://swapi.dev/api/planets')
       .then((result) => result.json())

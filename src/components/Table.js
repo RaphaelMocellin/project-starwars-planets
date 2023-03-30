@@ -21,7 +21,6 @@ function Table() {
     if (numericFilter.length === 0) return array;
     let workingArray = array;
     numericFilter.forEach((f) => {
-      // console.log(f);
       if (f.comparisonFilter === 'maior que') {
         workingArray = workingArray
           .filter((planet) => Number(planet[f.columnFilter]) > Number(f.valueFilter));
@@ -57,11 +56,9 @@ function Table() {
   };
 
   useEffect(() => {
-    // console.log('loop?');
     const filteredByName = filterByName(planets);
     const filteredByNumber = filterByNumber(filteredByName);
     const sortedPlanets = sortList(filteredByNumber);
-    // console.log(sortedPlanets);
 
     setFilteredPlanets(sortedPlanets);
   }, [planets, nameFilter, numericFilter, sort]);
